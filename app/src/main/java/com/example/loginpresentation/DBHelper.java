@@ -40,5 +40,5 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // MICHAEL!!!! public boolean checkdata(String email, String password){} This is the email responsible foe checking whether a record exists in the database using just the emails and password
-
+    // Tabs are better than spaces 
 }
