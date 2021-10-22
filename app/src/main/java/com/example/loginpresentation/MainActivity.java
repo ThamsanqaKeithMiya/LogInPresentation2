@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                //creating a message to notify user when they have successfully signed up or not
                if (checkinsertdata == false)
                {
-                   Toast.makeText(MainActivity.this, "Dign Up Unsuccessful", Toast.LENGTH_LONG).show();
+                   Toast.makeText(MainActivity.this, "Dign Up Unsuccessful", Toast.LENGTH_LONG).show(); //Simply made a grammatical adjustment
                }else
                {
                    Toast.makeText(MainActivity.this, "Sign Up Complete", Toast.LENGTH_LONG).show();
