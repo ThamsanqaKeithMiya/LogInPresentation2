@@ -3,6 +3,7 @@ package com.example.loginpresentation;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
     Button clear; //This button is used in the Sign Up page to clear all string entry fields
     Button view; //This button is used in the Sign Up page to view all existing database records
     //Button cancel; This variable is used in the Log In page
+
+    // intent.putextra() requires a string name and the best practice is to the name of the package(therefore we have to make a static variable for package name) THEN WE PUT "EXTRA_TEXT" at the end
+    //the reason we used the package name is so there is no confusion if the app is going to work with other app
+    //if you want to pass a int variable, the static final variable will still be string but the name would change to EXTRA_NUMBER
+    public static final String EXTRA_TEXT = "com.example.loginpresentation.EXTREA_TEXT";
+    public static final String et_lname = "com.example.loginpresentation.et_lname";
+    public static final String et_email = "com.example.loginpresentation.EXTREA_TEXT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         email.getText().clear();
                         password.getText().clear();
                         passwordAgain.getText().clear();
+                        // Code to go to the next activity
+                        openNewActivity();
                     }
                 } else
                     Toast.makeText(MainActivity.this, "Password entries do not match. Please ensure you have entered the correct password in both password fields.", Toast.LENGTH_LONG).show();
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     buffer.append("firstname:"+res.getString(1)+"\n");
                     buffer.append("lastname:"+res.getString(2)+"\n");
                     buffer.append("password:"+res.getString(3)+"\n\n");
-                }
+                 }
                 AlertDialog.Builder  builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setCancelable(true);
                 builder.setTitle("User Entries");
@@ -110,5 +120,22 @@ public class MainActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+
+    }
+    public void openNewActivity()
+    {
+        // extracting all the values in the edittexts in the view so they can be passed on to the second activity
+        String fnametxt = firstname.getText().toString();
+        String lnametxt = lastname.getText().toString();
+        String emailtxt = email.getText().toString();
+
+
+        Intent intent = new Intent(this, appointmentpage.class);
+        //this is where we pass the variables to the second activity via the EXTRA_TEXT we created above (look at line 30 - 33)
+        intent.putExtra(EXTRA_TEXT, fnametxt);
+        intent.putExtra(et_lname, lnametxt);
+        intent.putExtra(et_email, emailtxt);
+        startActivity(intent);
     }
 }
