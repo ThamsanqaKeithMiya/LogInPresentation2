@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInPresentation">
         <activity
+            android:name=".appointmentpage"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
