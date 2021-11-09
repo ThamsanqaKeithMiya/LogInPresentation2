@@ -16,12 +16,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override //onCreate method is mandatory when creating a database class
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("create Table UserDetails(email TEXT primary key, firstname TEXT, secondname TEXT, password TEXT)"); //This is the SQL Query responsible for creating the "UserDetails" database. Columns for an email, firstName, secondName and password will be created.
+        DB.execSQL("create Table UserDetails(email TEXT primary key, firstname TEXT, secondname TEXT, password TEXT)");//This is the SQL Query responsible for creating the "UserDetails" database. Columns for an email, firstName, secondName and password will be created.
+        DB.execSQL("create Table AppointmentDet(email TEXT primary key, firstname TEXT, reason TEXT, date TEXT)");
     }
 
     @Override //onUpgrade method is mandatory when creating a database class as well
     public void onUpgrade(SQLiteDatabase DB, int i, int i1) {
         DB.execSQL("drop Table if exists UserDetails");
+        DB.execSQL("drop Table if exists AppointmentDet");
     }
 
     //Method to insert data into the database
@@ -30,9 +32,24 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues(); //This is going to allow us to add content to our database and place it in the respective columns
         contentValues.put("email", email);
         contentValues.put("firstname", firstname);
-        contentValues.put("lastname", lastname);
-        contentValues.put("password", password);
+        contentValues.put("reason", lastname);
+        contentValues.put("date", password);
         long result = DB.insert("UserDetails", null, contentValues); // This is where we use the insert() method to actually place the values in the table so that a record can be correctly returned
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean insertAppointmentDetails(String email, String firstname, String Reason, String date) {
+        SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
+        ContentValues contentValues = new ContentValues(); //This is going to allow us to add content to our database and place it in the respective columns
+        contentValues.put("email", email);
+        contentValues.put("firstname", firstname);
+        contentValues.put("lastname", Reason);
+        contentValues.put("password", date);
+        long result = DB.insert("AppointmentDet", null, contentValues); // This is where we use the insert() method to actually place the values in the table so that a record can be correctly returned
         if (result == -1) {
             return false;
         } else {
@@ -81,6 +98,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getData() { //Whenever creating a method that makes use of a 'cursor', there usually isn't a need to make use of a parameter
         SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
         Cursor cursor = DB.rawQuery("Select * from Userdetails", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
+        cursor.close();
+        return cursor;
+    }
+
+    public Cursor getAppointmentDet() { //Whenever creating a method that makes use of a 'cursor', there usually isn't a need to make use of a parameter
+        SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
+        Cursor cursor = DB.rawQuery("Select * from AppointmentDet", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
         cursor.close();
         return cursor;
     }
