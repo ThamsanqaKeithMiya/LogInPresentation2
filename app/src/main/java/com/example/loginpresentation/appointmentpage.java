@@ -26,9 +26,8 @@ public class appointmentpage extends AppCompatActivity {
     EditText etDate;
     DatePickerDialog.OnDateSetListener setListener;
 
-    TextView tvFname;
-    TextView tvLname;
-    TextView tvEmail;
+
+
     EditText etReason;
     Button btnMakeApp;
     Button btnViewData;
@@ -44,17 +43,17 @@ public class appointmentpage extends AppCompatActivity {
         // here is the code to retrieve the values from the previous activity
         Intent intent= getIntent();
         // creating variables to intercept the values
-        String fnametxt = intent.getStringExtra(MainActivity.EXTRA_TEXT);
-        String lnametxt = intent.getStringExtra(MainActivity.et_lname);
-        String emailtxt = intent.getStringExtra(MainActivity.et_email);
+        String fnametxt = intent.getStringExtra("EXTRA_TEXT");
+        String lnametxt = intent.getStringExtra("et_lname");
+        String emailtxt = intent.getStringExtra("et_email");
 
         //Assigning the variables to the respective controls
         /*tvDate = (TextView) findViewById(R.id.tv_date);*/
         etDate = (EditText) findViewById(R.id.et_date);
-        tvFname = (TextView) findViewById(R.id.tv_fname);
-        tvLname = (TextView) findViewById(R.id.tv_lname);
+       TextView tvFname = (TextView) findViewById(R.id.tv_fname);
+       TextView tvLname = (TextView) findViewById(R.id.tv_lname);
         etReason = (EditText) findViewById(R.id.et_Reason);
-        tvEmail = (TextView) findViewById(R.id.tv_email);
+       TextView tvEmail = (TextView) findViewById(R.id.tv_email);
         btnMakeApp = (Button) findViewById(R.id.btn_MakeAppointment);
         btnViewData = (Button) findViewById(R.id.btn_ViewData);
         btnBacktomain = (Button) findViewById(R.id.btn_Backtomain);
@@ -156,6 +155,7 @@ public class appointmentpage extends AppCompatActivity {
         btnBacktomain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            openMainActivity();
 
             }
         });
