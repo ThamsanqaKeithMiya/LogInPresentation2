@@ -32,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     //if you want to pass a int variable, the static final variable will still be string but the name would change to EXTRA_NUMBER
     public static final String EXTRA_TEXT = "com.example.loginpresentation.EXTREA_TEXT";
     public static final String et_lname = "com.example.loginpresentation.et_lname";
-    public static final String et_email = "com.example.loginpresentation.EXTREA_TEXT";
+    public static final String et_email = "com.example.loginpresentation.et_mail";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.signup);
 
         //First we have to point all the variables created above to their allocated controls via ID
         firstname = findViewById(R.id.fname);
