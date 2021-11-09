@@ -40,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.signup);
 
         //First we have to point all the variables created above to their allocated controls via ID
-        firstname = findViewById(R.id.fname);
-        lastname = findViewById(R.id.lname);
-        email = findViewById(R.id.signupemail);
-        password = findViewById(R.id.signuppassword);
-        passwordAgain = findViewById(R.id.signuppasswordagain);
-        signup2 = findViewById(R.id.btnInsert);
-        clear = findViewById(R.id.btnClear);
-        view = findViewById(R.id.btnView);
+        firstname = (EditText) findViewById(R.id.fname);
+        lastname = (EditText) findViewById(R.id.lname);
+        email = (EditText) findViewById(R.id.signupemail);
+        password = (EditText) findViewById(R.id.signuppassword);
+        passwordAgain = (EditText) findViewById(R.id.signuppasswordagain);
+        signup2 = (Button) findViewById(R.id.btnInsert);
+        clear = (Button) findViewById(R.id.btnClear);
+        view = (Button) findViewById(R.id.btnView);
 
         DB = new DBHelper(this); //instantiating the DBHelper to achieve connection with database
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 String passwordTXT1 = password.getText().toString();
                 String passwordTXT2 = passwordAgain.getText().toString();
 
-                if (passwordTXT1 == passwordTXT2) { // This 'if' statement checks to see if the user has entered the same password in both password fields as a form of error checking. It prevents the data from being entered into the database if two different passwords are entered.
+                if (passwordTXT1 != passwordTXT2) { // This 'if' statement checks to see if the user has entered the same password in both password fields as a form of error checking. It prevents the data from being entered into the database if two different passwords are entered.
                     String fNameTXT = firstname.getText().toString();
                     String lNameTXT = lastname.getText().toString();
                     String emailTXT = email.getText().toString();
@@ -80,8 +80,9 @@ public class MainActivity extends AppCompatActivity {
                         // Code to go to the next activity
                         openNewActivity();
                     }
-                } else
-                    Toast.makeText(MainActivity.this, "Password entries do not match. Please ensure you have entered the correct password in both password fields.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Password entries do not match. Please ensure you have entered the correct password in both password fields." , Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -110,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 while (res.moveToNext()){
                     buffer.append("email:"+res.getString(0)+"\n");
                     buffer.append("firstname:"+res.getString(1)+"\n");
-                    buffer.append("lastname:"+res.getString(2)+"\n");
-                    buffer.append("password:"+res.getString(3)+"\n\n");
+                    buffer.append("secondname:"+res.getString(2)+"\n");
+                    buffer.append("password:"+res.getString(3)+"\n");
+                    buffer.append("\n");
                  }
                 AlertDialog.Builder  builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setCancelable(true);

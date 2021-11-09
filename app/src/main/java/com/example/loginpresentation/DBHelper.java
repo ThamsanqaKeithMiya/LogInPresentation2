@@ -32,8 +32,8 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues(); //This is going to allow us to add content to our database and place it in the respective columns
         contentValues.put("email", email);
         contentValues.put("firstname", firstname);
-        contentValues.put("reason", lastname);
-        contentValues.put("date", password);
+        contentValues.put("secondname", lastname);
+        contentValues.put("password", password);
         long result = DB.insert("UserDetails", null, contentValues); // This is where we use the insert() method to actually place the values in the table so that a record can be correctly returned
         if (result == -1) {
             return false;
@@ -47,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues(); //This is going to allow us to add content to our database and place it in the respective columns
         contentValues.put("email", email);
         contentValues.put("firstname", firstname);
-        contentValues.put("lastname", Reason);
+        contentValues.put("reason", Reason);
         contentValues.put("password", date);
         long result = DB.insert("AppointmentDet", null, contentValues); // This is where we use the insert() method to actually place the values in the table so that a record can be correctly returned
         if (result == -1) {
@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues(); //This is going to allow us to add content to our database and place it in the respective columns
         contentValues.put("email", email);
         contentValues.put("firstname", firstname);
-        contentValues.put("lastname", lastname);
+        contentValues.put("secondname", lastname);
         contentValues.put("password", password);
         Cursor cursor = DB.rawQuery("Select * from UserDetails where email = ?", new String[]{email});
         if (cursor.getCount()>0) {
@@ -82,7 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Method to delete a record from the database
     public boolean deleteUserData(String email) {
         SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
-        Cursor cursor = DB.rawQuery("Select * from Userdetails where email=?", new String[]{email}); //This assigns the cursor variable to the value of the record that the cursor is currently on
+        Cursor cursor = DB.rawQuery("Select * from UserDetails where email=?", new String[]{email}); //This assigns the cursor variable to the value of the record that the cursor is currently on
         if (cursor.getCount() > 0) { // This statement checks that there is indeed a record value that the cursor is on, just to make sure that there is actually a value to delete.
             long result = DB.delete("UserDetails", "email=?", new String[]{email});
             cursor.close();
@@ -97,15 +97,13 @@ public class DBHelper extends SQLiteOpenHelper {
     //Method responsible for fetching and viewing data from the database
     public Cursor getData() { //Whenever creating a method that makes use of a 'cursor', there usually isn't a need to make use of a parameter
         SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
-        Cursor cursor = DB.rawQuery("Select * from Userdetails", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
-        cursor.close();
+        Cursor cursor = DB.rawQuery("select * from UserDetails", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
         return cursor;
     }
 
     public Cursor getAppointmentDet() { //Whenever creating a method that makes use of a 'cursor', there usually isn't a need to make use of a parameter
         SQLiteDatabase DB = this.getWritableDatabase(); //This assigns the SQLite database to the DB variable
-        Cursor cursor = DB.rawQuery("Select * from AppointmentDet", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
-        cursor.close();
+        Cursor cursor = DB.rawQuery("select * from AppointmentDet", null); //This assigns the cursor variable to the value of the record that the cursor is currently on
         return cursor;
     }
 }
